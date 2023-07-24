@@ -1,27 +1,7 @@
-//your code here
-const bandNames = ['The Beatles', 'Led Zeppelin', 'Pink Floyd', 'The Who', 'Aerosmith', 'Rolling Stones', 'Queen', 'Anthrax', 'Black Sabbath'];
+const bands = ["The Plot in You", "The Devil Wears Prada", "Pierce the Veil", "Norma Jean", "The Bled", "Say Anything", "The Midway State", "We Came as Romans", "Counterparts", "Oh, Sleeper", "A Skylit Drive", "Anywhere But Here", "An Old Dog"];
 
-		function sortBands(bands) {
-			const articles = ['the', 'a', 'an'];
-			const sortedBands = bands.sort(function(a, b) {
-				const nameA = a.toLowerCase().replace(/^(the|an|a)\s+/, '');
-				const nameB = b.toLowerCase().replace(/^(the|an|a)\s+/, '');
-				if (nameA < nameB) {
-					return -1;
-				}
-				if (nameA > nameB) {
-					return 1;
-				}
-				return 0;
-			});
-			return sortedBands;
-		}
+const strip = (bandName) => bandName.replace(/^(a |the |an )/i, "").trim(); // use space between a, the or and to make sure that you catch whole word or not miss any word in the actual band name!
 
-		const sortedBands = sortBands(bandNames);
+const sortedBands = bands.sort((a, b) => strip(a) > strip(b) ? 1 : -1);
 
-		const bandList = document.getElementById("band");
-		sortedBands.forEach(function(band) {
-			const li = document.createElement("li");
-			li.appendChild(document.createTextNode(band));
-			bandList.appendChild(li);
-		});
+document.querySelector("#bands").innerHTML = sortedBands.map(band =>`<li>${band}</li>`).join(""); // join will join the array into a big string rather than a bunch of strings with a comma in between!
